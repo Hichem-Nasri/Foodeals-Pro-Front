@@ -1,0 +1,9 @@
+/* I gave  overflow hidden to html tag because of a scroll bug with shadcnUi dialog */
+html {
+    overflow: hidden;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #a855f7; /* Green color */
+    border-radius: 10px; /* Rounded corners */
+}

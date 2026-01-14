@@ -1,0 +1,4 @@
+/* I gave  overflow hidden to html tag because of a scroll bug with shadcnUi dialog */
+html {
+  overflow: hidden;
+}
