@@ -12,6 +12,10 @@ export enum PayzonePaymentStatus {
   REFUNDED = 'REFUNDED',
 }
 
+export enum PayzonePaymentMethod {
+  CARD = 'CARD',
+}
+
 /**
  * Payzone Paywall Payload
  * This matches the structure from launch_paywall.php example
@@ -57,14 +61,13 @@ export interface PayzoneFormData {
  */
 export interface PayzonePaymentCallback {
   transactionId?: string
+  orderId?: string
   chargeId?: string
-  status:
-    | 'SUCCESS'
-    | 'FAILED'
-    | 'CANCELLED'
+  status: PayzonePaymentStatus
   amount?: string
   currency?: string
   customerId?: string
+  metadata?: Record<string, any>
   [key: string]: any
 }
 
@@ -93,12 +96,83 @@ export interface PayzonePaymentRecord {
  * Payment initialization request (for backend API)
  */
 export interface PayzonePaymentInitRequest {
+  merchantId: string
+  paymentMethod: PayzonePaymentMethod
   amount: number
-  customerId: string
-  customerEmail: string
-  customerPhone?: string
+  currency: string
+  orderId: string
   description: string
+  customer?: {
+    email?: string
+    phone?: string
+    firstName?: string
+    lastName?: string
+  }
+  callbackUrl?: string
+  returnUrl?: string
+  cancelUrl?: string
+  errorUrl?: string
+  language?: string
   metadata?: Record<string, any>
+  // Legacy fields
+  customerId?: string
+  customerEmail?: string
+  customerPhone?: string
+}
+
+export interface PayzonePaymentInitResponse {
+  transactionId?: string
+  orderId?: string
+  paymentUrl?: string
+  expiresAt?: string
+  status?: PayzonePaymentStatus
+  [key: string]: any
+}
+
+export interface PayzonePaymentVerifyRequest {
+  transactionId: string
+  merchantId: string
+}
+
+export interface PayzonePaymentVerifyResponse {
+  transactionId?: string
+  orderId?: string
+  status?: PayzonePaymentStatus
+  paidAt?: string
+  amount?: number
+  currency?: string
+  card?: {
+    brand?: string
+    last4?: string
+    expMonth?: number
+    expYear?: number
+  }
+  errorMessage?: string
+  errorCode?: string
+  metadata?: Record<string, any>
+  [key: string]: any
+}
+
+export interface PayzonePaymentStatusRequest {
+  transactionId: string
+  merchantId: string
+}
+
+export interface PayzoneRefundRequest {
+  transactionId: string
+  merchantId: string
+  amount: number
+  reason?: string
+}
+
+export interface PayzoneRefundResponse {
+  refundId?: string
+  transactionId?: string
+  amount?: number
+  currency?: string
+  status?: PayzonePaymentStatus
+  refundedAt?: string
+  [key: string]: any
 }
 
 /**
@@ -112,6 +186,10 @@ export interface PayzoneErrorResponse {
     details?: any
   }
 }
+
+export type PayzoneApiResponse<T> =
+  | T
+  | PayzoneErrorResponse
 
 /**
  * Type guard for error response

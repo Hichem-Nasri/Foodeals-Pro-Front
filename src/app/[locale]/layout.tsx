@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  params: Promise<{ locale: 'en' | 'fr' | 'ar' }>;
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateStaticParams() {

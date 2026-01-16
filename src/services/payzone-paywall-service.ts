@@ -20,7 +20,6 @@ class PayzonePaywallService {
   private paywallUrl: string
 
   constructor() {
-    validatePayzoneConfig()
     this.merchantAccount =
       payzoneConfig.merchant.account
     this.secretKey =

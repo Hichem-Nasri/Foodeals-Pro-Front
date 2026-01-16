@@ -18,6 +18,7 @@ interface InputProps {
   type?: 'number' | 'text' | 'email' | 'password' | 'file' | 'textarea'
   name: string
   className?: string
+  maxLength?: number
   IconLeft?: ForwardRefExoticComponent<
     Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
   >
@@ -54,6 +55,7 @@ export const Input: FC<InputProps> = ({
   valueRight = '',
   valueLeft = '',
   classNameParent,
+  maxLength,
   ref,
 }) => {
   const [password, setPassword] = useState(false)
@@ -109,6 +111,7 @@ export const Input: FC<InputProps> = ({
               onChange(e.target.value)
             }
             value={type === 'number' && value === 0 ? undefined : value}
+            maxLength={maxLength}
             placeholder={placeholder}
             className={cn(
               'text-base font-normal',

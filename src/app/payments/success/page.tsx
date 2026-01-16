@@ -6,7 +6,7 @@
 
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { validatePayment } from '@/actions/payments/process-payment'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button'
 import { CheckCircle2, Loader2, Home, Receipt } from 'lucide-react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 
-export default function PaymentSuccessPage() {
+function PaymentSuccessContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const transactionId = searchParams.get('transactionId')
@@ -136,5 +136,13 @@ export default function PaymentSuccessPage() {
         </CardContent>
       </Card>
     </div>
+  )
+}
+
+export default function PaymentSuccessPage() {
+  return (
+    <Suspense fallback={<div className="container mx-auto max-w-md py-16" />}>
+      <PaymentSuccessContent />
+    </Suspense>
   )
 }

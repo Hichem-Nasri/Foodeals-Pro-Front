@@ -18,7 +18,11 @@ export default async function DeliveryLayout({
   return (
     <DeliveryProvider>
       <div className='wrapper flex h-full flex-col gap-y-2 bg-lynch-50'>
-        <UserRoleProvider role={user.role} userId={user.id}>
+        <UserRoleProvider
+          role={user.role}
+          userId={user.id}
+          organizationId={user.organizationId}
+        >
           <DeliveryHeader
             user={{
               id: user.id,

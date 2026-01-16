@@ -27,9 +27,9 @@ class PayzoneService {
   private merchantId: string
   private apiKey: string
   private secretKey: string
+  private configValidated = false
 
   constructor() {
-    validatePayzoneConfig()
     this.baseUrl = payzoneConfig.baseUrl
     this.merchantId =
       payzoneConfig.merchant.id
@@ -37,6 +37,12 @@ class PayzoneService {
       payzoneConfig.merchant.apiKey
     this.secretKey =
       payzoneConfig.merchant.secretKey
+  }
+
+  private ensureConfig(): void {
+    if (this.configValidated) return
+    validatePayzoneConfig()
+    this.configValidated = true
   }
 
   /**
@@ -69,6 +75,7 @@ class PayzoneService {
     payload: PayzonePaymentCallback,
     receivedSignature: string
   ): boolean {
+    this.ensureConfig()
     const { signature, ...data } =
       payload
     const calculatedSignature =
@@ -87,6 +94,7 @@ class PayzoneService {
     method: 'GET' | 'POST' = 'POST',
     body?: Record<string, any>
   ): Promise<PayzoneApiResponse<T>> {
+    this.ensureConfig()
     try {
       const url = `${this.baseUrl}${endpoint}`
       const timestamp =

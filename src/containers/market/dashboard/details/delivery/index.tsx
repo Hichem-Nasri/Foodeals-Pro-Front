@@ -7,7 +7,6 @@ import {
   NotificationType,
   TotalValueProps,
   TotalValues,
-  UserDto,
 } from '@/types/GlobalType'
 import Grid from '@/components/utils/Grid'
 import { getUser } from '@/actions'
@@ -116,10 +115,9 @@ const DeliveryOrder: React.FC<indexProps> = ({ id }) => {
   )
 }
 
-export const UsersDemo: Pick<
-  UserDto,
-  'name' | 'avatarPath' | 'role' | 'phone'
->[] = [
+export const UsersDemo: Array<
+  React.ComponentProps<typeof UserCard>['user']
+> = [
   {
     name: {
       firstName: 'John',

@@ -115,7 +115,7 @@ export function QRCodeScanner({
         {/* Permission Denied */}
         {hasPermission === false && (
           <div className='flex flex-col items-center justify-center gap-4 rounded-lg bg-coral-50 p-8 text-center'>
-            <Alertcircle className='h-16 w-16 text-coral-500' />
+            <AlertCircle className='h-16 w-16 text-coral-500' />
             <div>
               <h3 className='text-lg font-semibold text-coral-900'>
                 Camera Access Denied

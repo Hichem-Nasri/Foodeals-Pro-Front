@@ -31,7 +31,7 @@ const Provider = async ({
           <QueryProvider>
             <TitleProvider>
               <NotificationProvider>
-                <PermissionProvider user={session?.user!}>
+                <PermissionProvider user={session?.user ?? null}>
                   {children}
                   <Toaster />
                 </PermissionProvider>

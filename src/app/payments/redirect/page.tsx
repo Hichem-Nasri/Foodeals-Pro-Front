@@ -6,11 +6,11 @@
  * It should send a message to the parent window (iframe) and close
  */
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { CheckCircle2, XCircle, Loader2 } from 'lucide-react'
 
-export default function PaymentRedirectPage() {
+function PaymentRedirectContent() {
   const searchParams = useSearchParams()
   const [status, setStatus] = useState<'loading' | 'success' | 'failed'>('loading')
 
@@ -97,5 +97,13 @@ export default function PaymentRedirectPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function PaymentRedirectPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50" />}>
+      <PaymentRedirectContent />
+    </Suspense>
   )
 }

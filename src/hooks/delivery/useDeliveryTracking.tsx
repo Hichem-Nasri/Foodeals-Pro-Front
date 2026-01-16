@@ -24,6 +24,7 @@ export type DeliveryPositionUpdate = {
   coordinates: DeliveryPosition
   status: DeliveryStatus
   estimatedArrivalMinutes?: number
+  hasTakenOrderFromStore?: boolean
   timestamp?: string
 }
 

@@ -1,12 +1,27 @@
 import { AvatarAndName } from '@/components/tools/AvatarAndName'
 import { AvatarAndRole } from '@/components/utils/AvatarAndRole'
 import { PhoneBadge } from '@/components/utils/PhoneBadge'
-import { UserDto } from '@/types/GlobalType'
 import { capitalize } from '@/utils/utils'
 import React from 'react'
 
+type UserCardRole =
+  | string
+  | {
+      id?: string
+      name?: string
+      authorities?: string[]
+    }
+
 interface UserCardProps {
-  user: Pick<UserDto, 'name' | 'avatarPath' | 'role' | 'phone'>
+  user: {
+    name: {
+      firstName: string
+      lastName: string
+    }
+    avatarPath: string
+    role: UserCardRole
+    phone: string
+  }
   withPhone?: boolean
   onClick?: () => void
 }
@@ -16,6 +31,11 @@ const UserCard: React.FC<UserCardProps> = ({
   withPhone = true,
   onClick,
 }) => {
+  const roleLabel =
+    typeof user.role === 'string'
+      ? user.role
+      : user.role?.name || ''
+
   return (
     <button
       type='button'
@@ -26,7 +46,7 @@ const UserCard: React.FC<UserCardProps> = ({
         avatar={user.avatarPath}
         name={capitalize(user.name)}
         className='flex items-center gap-2'
-        role={capitalize(user.role.name)}
+        role={capitalize(roleLabel)}
         classNameAvatar='size-[46px]'
       />
       {withPhone && <PhoneBadge phone={user.phone} />}

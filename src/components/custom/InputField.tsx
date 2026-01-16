@@ -14,6 +14,7 @@ interface InputFieldProps {
   placeholder?: string
   className?: string
   disabled?: boolean
+  maxLength?: number
   IconLeft?: ForwardRefExoticComponent<
     Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
   >
@@ -37,6 +38,7 @@ export const InputFieldForm: FC<InputFieldProps> = ({
   IconRight,
   className,
   disabled,
+  maxLength,
   placeholder,
   type,
   iconLeftColor,
@@ -69,6 +71,7 @@ export const InputFieldForm: FC<InputFieldProps> = ({
                 type={type}
                 label={label}
                 disabled={disabled || field.disabled}
+                maxLength={maxLength}
                 onBlur={field.onBlur}
                 onChange={(value) =>
                   (type === 'number' && field.onChange(+value)) ||

@@ -29,7 +29,7 @@ export default function ManagerDashboardPage() {
   
   // Fetch active deliveries from API
   const { data: activeDeliveries, isLoading, refetch } = useQuery({
-    queryKey: ['active-deliveries', organizationId],
+    queryKey: ['active-deliveries', { organizationId }],
     queryFn: createQueryFn<ActiveDelivery[]>(
       `/deliveries/active?organizationId=${organizationId || 'default'}`
     ),

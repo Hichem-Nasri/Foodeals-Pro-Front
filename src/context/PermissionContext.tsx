@@ -1,11 +1,15 @@
 'use client'
 
-import { Roles, UserDto } from '@/types/GlobalType'
+import { Roles } from '@/types/GlobalType'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 import React, { createContext, useContext, useEffect } from 'react'
 
+type PermissionUser = {
+  role?: Roles | string
+}
+
 interface PermissionContextType {
-  user: UserDto | null
+  user: PermissionUser | null
   hasRole: (role: Roles) => boolean
   hasAnyRole: (roles: Roles[]) => boolean
   hasAuthority: (authority: string) => boolean
@@ -24,7 +28,7 @@ export const usePermissions = () => {
 }
 
 interface PermissionProviderProps {
-  user: UserDto
+  user: PermissionUser | null
   children?: React.ReactNode
 }
 
@@ -51,7 +55,7 @@ const PermissionProvider: React.FC<PermissionProviderProps> = ({
   }
 
   const hasAuthority = (authority: string): boolean => {
-    return user?.role.includes(authority) || false
+    return user?.role?.includes(authority) || false
   }
 
   const value: PermissionContextType = {

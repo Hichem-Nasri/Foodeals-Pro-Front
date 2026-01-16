@@ -8,6 +8,7 @@ import React, {
 type UserRoleContextType = {
   role: Roles
   userId: string
+  organizationId?: string | null
 }
 
 // Create the context with a default value
@@ -15,6 +16,7 @@ const UserRoleContext =
   createContext<UserRoleContextType>({
     role: Roles.DELIVERY_MAN,
     userId: '',
+    organizationId: null,
   })
 
 // Context provider component
@@ -22,10 +24,16 @@ export const UserRoleProvider: React.FC<{
   children: React.ReactNode
   role: Roles
   userId: string
-}> = ({ children, role, userId }) => {
+  organizationId?: string | null
+}> = ({
+  children,
+  role,
+  userId,
+  organizationId,
+}) => {
   return (
     <UserRoleContext.Provider
-      value={{ role, userId }}
+      value={{ role, userId, organizationId }}
     >
       {children}
     </UserRoleContext.Provider>

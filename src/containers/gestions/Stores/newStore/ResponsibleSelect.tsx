@@ -47,7 +47,7 @@ const ResponsibleSelect: React.FC<ResponsibleSelectProps> = ({
                 id: user.id + '',
                 name: `${capitalize(user.name?.firstName)} ${capitalize(user.name?.lastName)}`.trim(),
                 avatar: user.avatarPath || '',
-                role: capitalize(user?.role?.name.replace('_', ' ')),
+                role: capitalize(user?.role?.replace('_', ' ')),
             }))
             setUsers(users)
         }
