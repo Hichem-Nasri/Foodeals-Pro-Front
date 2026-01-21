@@ -62,7 +62,6 @@ function validateSignature(
 ): boolean {
   const notificationKey =
     process.env.PAYZONE_NOTIFICATION_KEY
-
   if (!notificationKey) {
     console.error(
       'PAYZONE_NOTIFICATION_KEY is not configured'
@@ -70,7 +69,6 @@ function validateSignature(
     return false
   }
 
-  // Calculate expected signature
   const expectedSignature = crypto
     .createHmac(
       'sha256',
